@@ -1,4 +1,4 @@
-package net.kuwalab.copypic;
+package net.kuwalab.android.copypic;
 
 public class CopySetting {
 	private String localPath;

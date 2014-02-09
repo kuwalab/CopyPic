@@ -1,12 +1,17 @@
-package net.kuwalab.copypic;
+package net.kuwalab.android.copypic;
 
 import java.util.Calendar;
 
+import net.kuwalab.copypic.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,15 +31,17 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		localPathText = (EditText) findViewById(R.id.localPath);
 		serverPathText = (EditText) findViewById(R.id.serverPath);
 		serverIdText = (EditText) findViewById(R.id.serverId);
+		serverIdText.setText(pref.getString("serverId", ""));
 		serverPasswordText = (EditText) findViewById(R.id.serverPassword);
 
 		Button copyButton = (Button) findViewById(R.id.copyButton);
 		copyButton.setOnClickListener(this);
 
-		pref = PreferenceManager.getDefaultSharedPreferences(this);
+		serverIdText.addTextChangedListener(tw);
 	}
 
 	@Override
@@ -60,4 +67,24 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
+
+	private TextWatcher tw = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			Log.i("tagtag", s.toString());
+			Editor editor = pref.edit();
+			editor.putString("serverId", s.toString());
+			editor.commit();
+		}
+	};
 }
