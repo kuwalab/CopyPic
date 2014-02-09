@@ -1,12 +1,15 @@
 package net.kuwalab.android.copypic;
 
+import java.io.File;
 import java.util.Calendar;
 
+import net.kuwalab.android.copypic.DirSelectDialog.OnDirSelectDialogListener;
 import net.kuwalab.copypic.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,8 +20,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener,
+		OnDirSelectDialogListener {
 	private EditText localPathText;
 	private EditText serverPathText;
 	private EditText serverIdText;
@@ -33,6 +38,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		localPathText = (EditText) findViewById(R.id.localPath);
+		Button dirSelectButton = (Button) findViewById(R.id.dirSelectButton);
+		dirSelectButton.setOnClickListener(this);
+
 		serverPathText = (EditText) findViewById(R.id.serverPath);
 		serverIdText = (EditText) findViewById(R.id.serverId);
 		serverIdText.setText(pref.getString("serverId", ""));
@@ -64,6 +72,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			new RefTask(v.getContext(), cs).execute();
 			break;
+		case R.id.dirSelectButton:
+			// ファイル選択ダイアログを表示
+			DirSelectDialog dialog = new DirSelectDialog(this);
+			dialog.setOnDirSelectDialogListener(this);
+
+			// 表示
+			dialog.show(Environment.getExternalStorageDirectory().getPath());
+			break;
 		}
 
 	}
@@ -87,4 +103,16 @@ public class MainActivity extends Activity implements OnClickListener {
 			editor.commit();
 		}
 	};
+
+	/**
+	 * ディレクトリ選択完了イベント
+	 */
+	@Override
+	public void onClickDirSelect(File file) {
+
+		if (file != null) {
+			// 選択ディレクトリを設定
+			((TextView) findViewById(R.id.localPath)).setText(file.getPath());
+		}
+	}
 }
