@@ -9,6 +9,12 @@
  android:paddingTop="@dimen/activity_vertical_margin"
  tools:context=".MainActivity" >
 
+ <Button
+  android:id="@+id/dirSelectButton"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="ディレクトリ選択" />
+
  <EditText
   android:id="@+id/localPath"
   android:layout_width="match_parent"
@@ -16,12 +22,6 @@
   android:hint="local"
   android:inputType="text"
   android:text="/storage/sdcard0/DCIM/Camera/" />
-
- <Button
-  android:id="@+id/dirSelectButton"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:text="選択" />
 
  <EditText
   android:id="@+id/serverPath"
