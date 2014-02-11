@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,18 +37,20 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		localPathText = (EditText) findViewById(R.id.localPath);
+		localPathText.setText(pref.getString("localPath", ""));
 		Button dirSelectButton = (Button) findViewById(R.id.dirSelectButton);
 		dirSelectButton.setOnClickListener(this);
 
 		serverPathText = (EditText) findViewById(R.id.serverPath);
+		serverPathText.setText(pref.getString("serverPath", ""));
 		serverIdText = (EditText) findViewById(R.id.serverId);
-		serverIdText.setText(pref.getString("serverId", ""));
 		serverPasswordText = (EditText) findViewById(R.id.serverPassword);
 
 		Button copyButton = (Button) findViewById(R.id.copyButton);
 		copyButton.setOnClickListener(this);
 
-		serverIdText.addTextChangedListener(tw);
+		localPathText.addTextChangedListener(tw);
+		serverPathText.addTextChangedListener(tw2);
 	}
 
 	@Override
@@ -97,9 +98,27 @@ public class MainActivity extends Activity implements OnClickListener,
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			Log.i("tagtag", s.toString());
 			Editor editor = pref.edit();
-			editor.putString("serverId", s.toString());
+			editor.putString("localPath", s.toString());
+			editor.commit();
+		}
+	};
+
+	private TextWatcher tw2 = new TextWatcher() {
+		@Override
+		public void afterTextChanged(Editable s) {
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			Editor editor = pref.edit();
+			editor.putString("serverPath", s.toString());
 			editor.commit();
 		}
 	};
