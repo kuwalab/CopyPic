@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,6 +66,8 @@ public class MainActivity extends Activity implements OnClickListener,
 		case R.id.copyButton:
 			String date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
 					.toString();
+			Log.i("###", serverPathText.getText().toString() + "pic" + date
+					+ "/");
 			CopySetting cs = new CopySetting(
 					localPathText.getText().toString(), serverPathText
 							.getText().toString() + "pic" + date + "/",

@@ -9,45 +9,76 @@
  android:paddingTop="@dimen/activity_vertical_margin"
  tools:context=".MainActivity" >
 
- <Button
-  android:id="@+id/dirSelectButton"
+ <TextView
+  style="@style/groupName"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="ディレクトリ選択" />
+  android:text="写真の保存先を指定" />
 
- <EditText
-  android:id="@+id/localPath"
+ <LinearLayout
+  style="@style/groupElement"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:hint="local"
-  android:inputType="text"
-  android:text="/storage/sdcard0/DCIM/Camera/" />
+  android:orientation="vertical" >
 
- <EditText
-  android:id="@+id/serverPath"
+  <Button
+   android:id="@+id/dirSelectButton"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:text="ディレクトリ選択" />
+
+  <EditText
+   android:id="@+id/localPath"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:hint="local"
+   android:inputType="text"
+   android:text="/storage/sdcard0/DCIM/Camera/" />
+ </LinearLayout>
+
+ <TextView
+  style="@style/groupName"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:hint="server"
-  android:inputType="text" />
+  android:text="写真のコピー先を指定" />
 
- <EditText
-  android:id="@+id/serverId"
+ <LinearLayout
+  style="@style/groupElement"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:hint="id"
-  android:inputType="text" />
+  android:orientation="vertical" >
 
- <EditText
-  android:id="@+id/serverPassword"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:hint="password"
-  android:inputType="textPassword" />
+  <EditText
+   android:id="@+id/serverPath"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:hint="server"
+   android:inputType="text" />
+
+  <TextView
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:text="サーバーの認証情報" />
+
+  <EditText
+   android:id="@+id/serverId"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:hint="ユーザーid"
+   android:inputType="text" />
+
+  <EditText
+   android:id="@+id/serverPassword"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:hint="password"
+   android:inputType="textPassword" />
+ </LinearLayout>
 
  <Button
   android:id="@+id/copyButton"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="@string/hello_world" />
+  android:text="写真をコピー" />
 
 </LinearLayout>
