@@ -21,11 +21,24 @@
   android:layout_height="wrap_content"
   android:orientation="vertical" >
 
-  <Button
-   android:id="@+id/dirSelectButton"
-   android:layout_width="wrap_content"
+  <LinearLayout
+   android:layout_width="match_parent"
    android:layout_height="wrap_content"
-   android:text="ディレクトリ選択" />
+   android:orientation="horizontal" >
+
+   <Button
+    android:id="@+id/autoSearch"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="自動検索
+   " />
+
+   <Button
+    android:id="@+id/dirSelectButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="ディレクトリ選択" />
+  </LinearLayout>
 
   <EditText
    android:id="@+id/localPath"

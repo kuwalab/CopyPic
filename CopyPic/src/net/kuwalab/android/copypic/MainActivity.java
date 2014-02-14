@@ -1,6 +1,7 @@
 package net.kuwalab.android.copypic;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 import net.kuwalab.android.copypic.DirSelectDialog.OnDirSelectDialogListener;
@@ -21,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnDirSelectDialogListener {
@@ -41,6 +43,8 @@ public class MainActivity extends Activity implements OnClickListener,
 		localPathText.setText(pref.getString("localPath", ""));
 		Button dirSelectButton = (Button) findViewById(R.id.dirSelectButton);
 		dirSelectButton.setOnClickListener(this);
+		Button autoSearcch = (Button) findViewById(R.id.autoSearch);
+		autoSearcch.setOnClickListener(this);
 
 		serverPathText = (EditText) findViewById(R.id.serverPath);
 		serverPathText.setText(pref.getString("serverPath", ""));
@@ -63,6 +67,19 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.autoSearch:
+			File file = new File(Environment.getExternalStorageDirectory(),
+					"DCIM/Camera");
+			if (file.exists()) {
+				try {
+					localPathText.setText(file.getCanonicalPath());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				Toast.makeText(this, "見つからなかったです。", Toast.LENGTH_SHORT).show();
+			}
+			break;
 		case R.id.copyButton:
 			String date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
 					.toString();
