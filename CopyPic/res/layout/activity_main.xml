@@ -45,8 +45,13 @@
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
    android:hint="local"
-   android:inputType="text"
-   android:text="/storage/sdcard0/DCIM/Camera/" />
+   android:inputType="text" />
+
+  <TextView
+   android:id="@+id/dirInfo"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:text="ディレクトリを選択してください" />
  </LinearLayout>
 
  <TextView
