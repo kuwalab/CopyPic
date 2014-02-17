@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener,
-		OnDirSelectDialogListener {
+		OnDirSelectDialogListener, OnFocusChangeListener {
 	private EditText localPathText;
 	private TextView dirInfo;
 	private EditText serverPathText;
@@ -58,40 +58,10 @@ public class MainActivity extends Activity implements OnClickListener,
 		copyButton.setOnClickListener(this);
 
 		localPathText.addTextChangedListener(tw);
-		localPathText.setOnFocusChangeListener(new OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (!hasFocus) {
-					File file = new File(localPathText.getText().toString());
-
-					if (!file.exists()) {
-						dirInfo.setText("存在しないパスです");
-						return;
-					}
-					if (!file.isDirectory()) {
-						dirInfo.setText("ディレクトリではありません");
-						return;
-					}
-
-					File[] files = file.listFiles();
-					int fileCount = 0;
-					long fileSize = 0;
-					for (File localFile : files) {
-						if (!localFile.isDirectory()) {
-							fileCount++;
-							try {
-								fileSize += localFile.length();
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					}
-					dirInfo.setText("ファイル数:" + fileCount + " サイズ:"
-							+ FileSizeUtil.getFileSizeForView(fileSize));
-				}
-			}
-		});
+		localPathText.setOnFocusChangeListener(this);
 		serverPathText.addTextChangedListener(tw2);
+
+		calcDirSize();
 	}
 
 	@Override
@@ -189,5 +159,45 @@ public class MainActivity extends Activity implements OnClickListener,
 			// 選択ディレクトリを設定
 			((TextView) findViewById(R.id.localPath)).setText(file.getPath());
 		}
+	}
+
+	@Override
+	public void onFocusChange(View v, boolean hasFocus) {
+		switch (v.getId()) {
+		case R.id.localPath:
+			if (!hasFocus) {
+				calcDirSize();
+			}
+			break;
+		}
+	}
+
+	private void calcDirSize() {
+		File file = new File(localPathText.getText().toString());
+
+		if (!file.exists()) {
+			dirInfo.setText("存在しないパスです");
+			return;
+		}
+		if (!file.isDirectory()) {
+			dirInfo.setText("ディレクトリではありません");
+			return;
+		}
+
+		File[] files = file.listFiles();
+		int fileCount = 0;
+		long fileSize = 0;
+		for (File localFile : files) {
+			if (!localFile.isDirectory()) {
+				fileCount++;
+				try {
+					fileSize += localFile.length();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		dirInfo.setText("ファイル数:" + fileCount + " サイズ:"
+				+ FileSizeUtil.getFileSizeForView(fileSize));
 	}
 }
