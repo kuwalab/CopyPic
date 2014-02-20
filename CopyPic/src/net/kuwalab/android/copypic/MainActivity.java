@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener,
+public class MainActivity extends Activity implements
 		OnDirSelectDialogListener, OnFocusChangeListener {
 	private EditText localPathText;
 	private TextView dirInfo;
@@ -39,15 +39,16 @@ public class MainActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		OnClickListener ocl = new OnClickListenerImpl(this);
 
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		localPathText = (EditText) findViewById(R.id.localPath);
 		localPathText.setText(pref.getString("localPath", ""));
 		dirInfo = (TextView) findViewById(R.id.dirInfo);
 		Button dirSelectButton = (Button) findViewById(R.id.dirSelectButton);
-		dirSelectButton.setOnClickListener(this);
+		dirSelectButton.setOnClickListener(ocl);
 		Button autoSearcch = (Button) findViewById(R.id.autoSearch);
-		autoSearcch.setOnClickListener(this);
+		autoSearcch.setOnClickListener(ocl);
 
 		serverPathText = (EditText) findViewById(R.id.serverPath);
 		serverPathText.setText(pref.getString("serverPath", ""));
@@ -55,7 +56,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		serverPasswordText = (EditText) findViewById(R.id.serverPassword);
 
 		Button copyButton = (Button) findViewById(R.id.copyButton);
-		copyButton.setOnClickListener(this);
+		copyButton.setOnClickListener(ocl);
 
 		localPathText.addTextChangedListener(tw);
 		localPathText.setOnFocusChangeListener(this);
@@ -68,47 +69,6 @@ public class MainActivity extends Activity implements OnClickListener,
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.autoSearch:
-			File file = new File(Environment.getExternalStorageDirectory(),
-					"DCIM/Camera");
-			if (file.exists()) {
-				try {
-					localPathText.setText(file.getCanonicalPath());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				Toast.makeText(this, "見つからなかったです。", Toast.LENGTH_SHORT).show();
-			}
-			break;
-		case R.id.copyButton:
-			String date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
-					.toString();
-			Log.i("###", serverPathText.getText().toString() + "pic" + date
-					+ "/");
-			CopySetting cs = new CopySetting(
-					localPathText.getText().toString(), serverPathText
-							.getText().toString() + "pic" + date + "/",
-					serverIdText.getText().toString(), serverPasswordText
-							.getText().toString());
-
-			new RefTask(v.getContext(), cs).execute();
-			break;
-		case R.id.dirSelectButton:
-			// ファイル選択ダイアログを表示
-			DirSelectDialog dialog = new DirSelectDialog(this);
-			dialog.setOnDirSelectDialogListener(this);
-
-			// 表示
-			dialog.show(Environment.getExternalStorageDirectory().getPath());
-			break;
-		}
-
 	}
 
 	private TextWatcher tw = new TextWatcher() {
@@ -199,5 +159,40 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 		dirInfo.setText("ファイル数:" + fileCount + " サイズ:"
 				+ FileSizeUtil.getFileSizeForView(fileSize));
+	}
+
+	public void onClickAutoSearch(View v) {
+		File file = new File(Environment.getExternalStorageDirectory(),
+				"DCIM/Camera");
+		if (file.exists()) {
+			try {
+				localPathText.setText(file.getCanonicalPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Toast.makeText(this, "見つからなかったです。", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void onClickCopyButton(View v) {
+		String date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
+				.toString();
+		Log.i("###", serverPathText.getText().toString() + "pic" + date + "/");
+		CopySetting cs = new CopySetting(localPathText.getText().toString(),
+				serverPathText.getText().toString() + "pic" + date + "/",
+				serverIdText.getText().toString(), serverPasswordText.getText()
+						.toString());
+
+		new RefTask(v.getContext(), cs).execute();
+	}
+
+	public void onClickDirSelectButton(View v) {
+		// ファイル選択ダイアログを表示
+		DirSelectDialog dialog = new DirSelectDialog(this);
+		dialog.setOnDirSelectDialogListener(this);
+
+		// 表示
+		dialog.show(Environment.getExternalStorageDirectory().getPath());
 	}
 }
