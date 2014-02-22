@@ -82,7 +82,7 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 		dialog.setTitle(dirPath);
 		// dialog.setIcon(R.drawable.directory);
 		dialog.setItems(nameList.toArray(new String[0]), this);
-		dialog.setPositiveButton("決 定", new DialogInterface.OnClickListener() {
+		dialog.setPositiveButton("決定", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int value) {
 				DirSelectDialog.this.listener
@@ -90,7 +90,7 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 			}
 		});
 
-		dialog.setNeutralButton("上 へ", new DialogInterface.OnClickListener() {
+		dialog.setNeutralButton("上へ", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int value) {
