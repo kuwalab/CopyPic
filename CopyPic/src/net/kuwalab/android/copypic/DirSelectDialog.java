@@ -18,7 +18,6 @@ import android.content.DialogInterface.OnClickListener;
  * ディレクトリ選択ダイアログ
  */
 public class DirSelectDialog extends Activity implements OnClickListener {
-
 	/** アクティビティ */
 	private Activity activity = null;
 
@@ -38,7 +37,6 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 	 *            アクティビティ
 	 */
 	public DirSelectDialog(Activity activity) {
-
 		this.activity = activity;
 	}
 
@@ -52,7 +50,6 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-
 		show(this.viewFileDataList.get(which).getAbsolutePath() + "/");
 	}
 
@@ -63,53 +60,31 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 	 *            ディレクトリのパス
 	 */
 	public void show(final String dirPath) {
-
-		// ファイル情報
 		this.fileData = new File(dirPath);
-
-		// ファイルリスト
 		File[] fileArray = this.fileData.listFiles();
-
-		// 名前リスト
 		List<String> nameList = new ArrayList<String>();
-
 		if (fileArray != null) {
-
-			// ファイル情報マップ
 			Map<String, File> map = new HashMap<String, File>();
-
 			for (File file : fileArray) {
-
 				if (file.isDirectory()) {
-
 					nameList.add(file.getName() + "/");
 					map.put(nameList.get(map.size()), file);
 				}
 			}
-
-			// ソート
 			Collections.sort(nameList);
-
-			// ファイル情報リスト
 			this.viewFileDataList = new ArrayList<File>();
-
 			for (int i = 0; i < nameList.size(); i++) {
-
 				this.viewFileDataList.add(map.get(nameList.get(i)));
 			}
 		}
 
-		// ダイアログを生成
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this.activity);
 		dialog.setTitle(dirPath);
 		// dialog.setIcon(R.drawable.directory);
 		dialog.setItems(nameList.toArray(new String[0]), this);
-
 		dialog.setPositiveButton("決 定", new DialogInterface.OnClickListener() {
-
 			@Override
 			public void onClick(DialogInterface dialog, int value) {
-
 				DirSelectDialog.this.listener
 						.onClickDirSelect(DirSelectDialog.this.fileData);
 			}
@@ -119,19 +94,14 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 
 			@Override
 			public void onClick(DialogInterface dialog, int value) {
-
 				if (!"/".equals(dirPath)) {
-
 					String dirPathNew = dirPath.substring(0,
 							dirPath.length() - 1);
 					dirPathNew = dirPathNew.substring(0,
 							dirPathNew.lastIndexOf("/") + 1);
-
 					// 1つ上へ
 					show(dirPathNew);
-
 				} else {
-
 					// 現状維持
 					show(dirPath);
 				}
@@ -140,10 +110,8 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 
 		dialog.setNegativeButton("キャンセル",
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int value) {
-
 						DirSelectDialog.this.listener.onClickDirSelect(null);
 					}
 				});
@@ -158,7 +126,6 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 	 *            選択イベントリスナー
 	 */
 	public void setOnDirSelectDialogListener(OnDirSelectDialogListener listener) {
-
 		this.listener = listener;
 	}
 
@@ -166,7 +133,6 @@ public class DirSelectDialog extends Activity implements OnClickListener {
 	 * ボタン押下インターフェース
 	 */
 	public interface OnDirSelectDialogListener {
-
 		/**
 		 * 選択イベント
 		 * 
