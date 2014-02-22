@@ -168,10 +168,13 @@ public class MainActivity extends Activity implements OnDirSelectDialogListener 
 		String date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
 				.toString();
 		Log.i("###", serverPathText.getText().toString() + "pic" + date + "/");
+		String serverPath = serverPathText.getText().toString();
+		if (!serverPath.endsWith("/")) {
+			serverPath = serverPath + "/";
+		}
 		CopySetting cs = new CopySetting(localPathText.getText().toString(),
-				serverPathText.getText().toString() + "pic" + date + "/",
-				serverIdText.getText().toString(), serverPasswordText.getText()
-						.toString());
+				serverPath + "pic" + date + "/", serverIdText.getText()
+						.toString(), serverPasswordText.getText().toString());
 
 		new RefTask(v.getContext(), cs).execute();
 	}
