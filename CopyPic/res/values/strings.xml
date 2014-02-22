@@ -5,4 +5,7 @@
  <string name="action_settings">Settings</string>
  <string name="hello_world">Hello world!</string>
 
+ <!-- Dialogのメッセージ -->
+ <string name="file_transfer">ファイルの転送</string>
+ <string name="file_transfer_status">ファイルの転送中です。</string>
 </resources>

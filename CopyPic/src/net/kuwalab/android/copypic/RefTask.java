@@ -25,8 +25,8 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 	@Override
 	protected void onPreExecute() {
 		dialog = new ProgressDialog(context);
-		dialog.setTitle("Please wait");
-		dialog.setMessage("Loading data...");
+		dialog.setTitle(context.getText(R.string.file_transfer));
+		dialog.setMessage(context.getText(R.string.file_transfer_status));
 		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		dialog.setMax(0);
 		dialog.setProgress(0);
