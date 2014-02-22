@@ -25,8 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements
-		OnDirSelectDialogListener, OnFocusChangeListener {
+public class MainActivity extends Activity implements OnDirSelectDialogListener {
 	private EditText localPathText;
 	private TextView dirInfo;
 	private EditText serverPathText;
@@ -40,6 +39,7 @@ public class MainActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		OnClickListener ocl = new OnClickListenerImpl(this);
+		OnFocusChangeListener ofcl = new OnFocusChangeListenerImpl(this);
 
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		localPathText = (EditText) findViewById(R.id.localPath);
@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements
 		copyButton.setOnClickListener(ocl);
 
 		localPathText.addTextChangedListener(tw);
-		localPathText.setOnFocusChangeListener(this);
+		localPathText.setOnFocusChangeListener(ofcl);
 		serverPathText.addTextChangedListener(tw2);
 
 		calcDirSize();
@@ -118,17 +118,6 @@ public class MainActivity extends Activity implements
 		if (file != null) {
 			// 選択ディレクトリを設定
 			((TextView) findViewById(R.id.localPath)).setText(file.getPath());
-		}
-	}
-
-	@Override
-	public void onFocusChange(View v, boolean hasFocus) {
-		switch (v.getId()) {
-		case R.id.localPath:
-			if (!hasFocus) {
-				calcDirSize();
-			}
-			break;
 		}
 	}
 
@@ -194,5 +183,11 @@ public class MainActivity extends Activity implements
 
 		// 表示
 		dialog.show(Environment.getExternalStorageDirectory().getPath());
+	}
+
+	public void onFocusOutLocalPathText(View v, boolean hasFocus) {
+		if (!hasFocus) {
+			calcDirSize();
+		}
 	}
 }
