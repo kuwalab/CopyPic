@@ -91,9 +91,9 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 
 		byte[] buf = new byte[8192];
 		try {
-			int n = 0;
-			while ((n = is.read(buf, 0, buf.length)) != -1) {
-				os.write(buf, 0, n);
+			int len = 0;
+			while ((len = is.read(buf, 0, buf.length)) != -1) {
+				os.write(buf, 0, len);
 			}
 			os.flush();
 		} finally {
