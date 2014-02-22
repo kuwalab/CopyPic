@@ -8,12 +8,9 @@ import net.kuwalab.android.copypic.DirSelectDialog.OnDirSelectDialogListener;
 import net.kuwalab.android.util.FileSizeUtil;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnDirSelectDialogListener {
+public class MainActivity extends Activity {
 	private EditText localPathText;
 	private TextView dirInfo;
 	private EditText serverPathText;
@@ -58,9 +55,11 @@ public class MainActivity extends Activity implements OnDirSelectDialogListener 
 		Button copyButton = (Button) findViewById(R.id.copyButton);
 		copyButton.setOnClickListener(ocl);
 
-		localPathText.addTextChangedListener(tw);
+		localPathText.addTextChangedListener(new TextWatcherImpl(pref,
+				"localPath"));
 		localPathText.setOnFocusChangeListener(ofcl);
-		serverPathText.addTextChangedListener(tw2);
+		serverPathText.addTextChangedListener(new TextWatcherImpl(pref,
+				"serverPath"));
 
 		calcDirSize();
 	}
@@ -71,50 +70,10 @@ public class MainActivity extends Activity implements OnDirSelectDialogListener 
 		return true;
 	}
 
-	private TextWatcher tw = new TextWatcher() {
-		@Override
-		public void afterTextChanged(Editable s) {
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-		}
-
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			Editor editor = pref.edit();
-			editor.putString("localPath", s.toString());
-			editor.commit();
-		}
-	};
-
-	private TextWatcher tw2 = new TextWatcher() {
-		@Override
-		public void afterTextChanged(Editable s) {
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-		}
-
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			Editor editor = pref.edit();
-			editor.putString("serverPath", s.toString());
-			editor.commit();
-		}
-	};
-
 	/**
 	 * ディレクトリ選択完了イベント
 	 */
-	@Override
 	public void onClickDirSelect(File file) {
-
 		if (file != null) {
 			// 選択ディレクトリを設定
 			((TextView) findViewById(R.id.localPath)).setText(file.getPath());
@@ -180,9 +139,12 @@ public class MainActivity extends Activity implements OnDirSelectDialogListener 
 	}
 
 	public void onClickDirSelectButton(View v) {
+		OnDirSelectDialogListener odsdl = new OnDirSelectDialogListenerImpl(
+				this);
+
 		// ファイル選択ダイアログを表示
 		DirSelectDialog dialog = new DirSelectDialog(this);
-		dialog.setOnDirSelectDialogListener(this);
+		dialog.setOnDirSelectDialogListener(odsdl);
 
 		// 表示
 		dialog.show(Environment.getExternalStorageDirectory().getPath());

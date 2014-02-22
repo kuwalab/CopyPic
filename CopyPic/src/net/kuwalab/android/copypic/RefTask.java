@@ -47,7 +47,6 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 			SmbFile writeDir = new SmbFile("smb://" + cs.getServerPath(),
 					new NtlmPasswordAuthentication(null, cs.getServerId(),
 							cs.getServerPassword()));
-
 			if (!writeDir.exists()) {
 				writeDir.mkdirs();
 			}
