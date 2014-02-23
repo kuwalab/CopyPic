@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -80,16 +79,16 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private void calcDirSize() {
+	private Long calcDirSize() {
 		File file = new File(localPathText.getText().toString());
 
 		if (!file.exists()) {
 			dirInfo.setText("存在しないパスです");
-			return;
+			return 0L;
 		}
 		if (!file.isDirectory()) {
 			dirInfo.setText("ディレクトリではありません");
-			return;
+			return 0L;
 		}
 
 		File[] files = file.listFiles();
@@ -107,6 +106,8 @@ public class MainActivity extends Activity {
 		}
 		dirInfo.setText("ファイル数:" + fileCount + " サイズ:"
 				+ FileSizeUtil.getFileSizeForView(fileSize));
+
+		return fileSize;
 	}
 
 	public void onClickAutoSearch(View v) {
@@ -126,7 +127,6 @@ public class MainActivity extends Activity {
 	public void onClickCopyButton(View v) {
 		String date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
 				.toString();
-		Log.i("###", serverPathText.getText().toString() + "pic" + date + "/");
 		String serverPath = serverPathText.getText().toString();
 		if (!serverPath.endsWith("/")) {
 			serverPath = serverPath + "/";
@@ -135,7 +135,9 @@ public class MainActivity extends Activity {
 				serverPath + "pic" + date + "/", serverIdText.getText()
 						.toString(), serverPasswordText.getText().toString());
 
-		new RefTask(v.getContext(), cs).execute();
+		RefTask refTask = new RefTask(v.getContext(), cs);
+		refTask.setFileSize((int) (calcDirSize() / 1024));
+		refTask.execute();
 	}
 
 	public void onClickDirSelectButton(View v) {

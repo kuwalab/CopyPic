@@ -16,10 +16,17 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 	private Context context;
 	private CopySetting cs;
 	private ProgressDialog dialog;
+	private Integer totalSize;
+	private Long transferSize;
 
 	public RefTask(Context context, CopySetting cs) {
 		this.context = context;
 		this.cs = cs;
+		transferSize = 0L;
+	}
+
+	public void setFileSize(Integer fileSize) {
+		totalSize = fileSize;
 	}
 
 	@Override
@@ -42,7 +49,7 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 				return null;
 			}
 			File[] files = dir.listFiles();
-			dialog.setMax(files.length);
+			dialog.setMax(totalSize);
 
 			SmbFile writeDir = new SmbFile("smb://" + cs.getServerPath(),
 					new NtlmPasswordAuthentication(null, cs.getServerId(),
@@ -62,11 +69,10 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 								cs.getServerId(), cs.getServerPassword()));
 
 				if (file.exists()) {
-					publishProgress(i);
 					continue;
 				}
 				copy(f, file);
-				publishProgress(i);
+				publishProgress((int) (transferSize / 1024));
 			}
 
 		} catch (IOException e) {
@@ -92,7 +98,14 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 		byte[] buf = new byte[8192];
 		try {
 			int len = 0;
+			int count = 0;
 			while ((len = is.read(buf, 0, buf.length)) != -1) {
+				transferSize = transferSize + (long) len;
+				if (count == 100) {
+					publishProgress((int) (transferSize / 1024));
+					count = 0;
+				}
+				count++;
 				os.write(buf, 0, len);
 			}
 			os.flush();
