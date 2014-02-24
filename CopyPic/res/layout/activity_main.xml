@@ -13,7 +13,7 @@
   style="@style/groupName"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="写真の保存先を指定" />
+  android:text="@string/pic_dir" />
 
  <LinearLayout
   style="@style/groupElement"
@@ -28,37 +28,38 @@
 
    <Button
     android:id="@+id/autoSearch"
+    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="自動検索
-   " />
+    android:text="@string/auto_search" />
 
    <Button
     android:id="@+id/dirSelectButton"
+    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="ディレクトリ選択" />
+    android:text="@string/select_dir" />
   </LinearLayout>
 
   <EditText
    android:id="@+id/localPath"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
-   android:hint="local"
+   android:hint="@string/hint_local"
    android:inputType="text" />
 
   <TextView
    android:id="@+id/dirInfo"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
-   android:text="ディレクトリを選択してください" />
+   android:text="@string/local_dir_init" />
  </LinearLayout>
 
  <TextView
   style="@style/groupName"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:text="写真のコピー先を指定" />
+  android:text="@string/copy_target" />
 
  <LinearLayout
   style="@style/groupElement"
@@ -70,33 +71,42 @@
    android:id="@+id/serverPath"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
-   android:hint="server"
+   android:hint="@string/hint_server"
    android:inputType="text" />
 
   <TextView
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
-   android:text="サーバーの認証情報" />
+   android:text="@string/auth_info" />
 
   <EditText
    android:id="@+id/serverId"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
-   android:hint="ユーザーid"
+   android:hint="@string/user_id"
    android:inputType="text" />
 
   <EditText
    android:id="@+id/serverPassword"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
-   android:hint="password"
+   android:hint="@string/password"
    android:inputType="textPassword" />
  </LinearLayout>
 
- <Button
-  android:id="@+id/copyButton"
-  android:layout_width="wrap_content"
+ <LinearLayout
+  style="?android:attr/buttonBarStyle"
+  android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:text="写真をコピー" />
+  android:measureWithLargestChild="true"
+  android:orientation="horizontal" >
+
+  <Button
+   android:id="@+id/copyButton"
+   style="?android:attr/buttonBarButtonStyle"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:text="@string/copy_pic" />
+ </LinearLayout>
 
 </LinearLayout>

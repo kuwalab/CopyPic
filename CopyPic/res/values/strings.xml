@@ -3,8 +3,27 @@
 
  <string name="app_name">CopyPic</string>
  <string name="action_settings">Settings</string>
- <string name="hello_world">Hello world!</string>
+ 
+ <string name="pic_dir">写真の保存先を指定</string>
+ <string name="auto_search">自動検索</string>
+ <string name="select_dir">ディレクトリ選択</string>
+ <string name="hint_local">local</string>
+ <string name="local_dir_init">ディレクトリを選択してください</string>
+ 
+ <string name="copy_target">写真のコピー先を指定</string>
+ <string name="hint_server">server</string>
+ <string name="auth_info">サーバーの認証情報</string>
+ 
+ <string name="user_id">ユーザーID</string>
+ <string name="password">パスワード</string>
+ 
+ <string name="copy_pic">写真をコピー</string>
 
+ <!-- ローカル -->
+ <string name="local_dir_not_exist">存在しないディレクトリです</string>
+ <string name="local_dir_not_dir">ディレクトリではありません</string>
+ <string name="local_dir_info">ファイル数: %1$d サイズ: %2$s</string>
+ 
  <!-- Dialogのメッセージ -->
  <string name="file_transfer">ファイルの転送</string>
  <string name="file_transfer_status">ファイルの転送中です。</string>

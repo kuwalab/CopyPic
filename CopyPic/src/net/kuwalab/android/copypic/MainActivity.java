@@ -83,11 +83,11 @@ public class MainActivity extends Activity {
 		File file = new File(localPathText.getText().toString());
 
 		if (!file.exists()) {
-			dirInfo.setText("存在しないパスです");
+			dirInfo.setText(R.string.local_dir_not_exist);
 			return 0L;
 		}
 		if (!file.isDirectory()) {
-			dirInfo.setText("ディレクトリではありません");
+			dirInfo.setText(R.string.local_dir_not_dir);
 			return 0L;
 		}
 
@@ -104,8 +104,8 @@ public class MainActivity extends Activity {
 				}
 			}
 		}
-		dirInfo.setText("ファイル数:" + fileCount + " サイズ:"
-				+ FileSizeUtil.getFileSizeForView(fileSize));
+		dirInfo.setText(String.format(getString(R.string.local_dir_info),
+				fileCount, FileSizeUtil.getFileSizeForView(fileSize)));
 
 		return fileSize;
 	}
