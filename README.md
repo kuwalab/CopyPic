@@ -5,3 +5,8 @@ Android端末内の画像ファイルを、ローカルネットワークの共�
 ## ライセンス
 LGPL
 
+## 使用ライブラリ
+
+jCIFSを使っています。
+
+http://jcifs.samba.org/
