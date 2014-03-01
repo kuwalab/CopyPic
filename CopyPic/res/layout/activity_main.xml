@@ -1,112 +1,87 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
  xmlns:tools="http://schemas.android.com/tools"
  android:layout_width="match_parent"
  android:layout_height="match_parent"
- android:orientation="vertical"
- android:paddingBottom="@dimen/activity_vertical_margin"
- android:paddingLeft="@dimen/activity_horizontal_margin"
- android:paddingRight="@dimen/activity_horizontal_margin"
- android:paddingTop="@dimen/activity_vertical_margin"
+ android:alignmentMode="alignBounds"
+ android:columnCount="3"
+ android:columnOrderPreserved="false"
+ android:padding="8dip"
+ android:useDefaultMargins="true"
  tools:context=".MainActivity" >
 
  <TextView
   style="@style/groupName"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
+  android:layout_columnSpan="3"
   android:text="@string/pic_dir" />
 
- <LinearLayout
-  style="@style/groupElement"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical" >
+ <Space android:layout_width="24dp" />
 
-  <LinearLayout
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:orientation="horizontal" >
+ <Button
+  android:id="@+id/autoSearch"
+  style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+  android:text="@string/auto_search" />
 
-   <Button
-    android:id="@+id/autoSearch"
-    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/auto_search" />
+ <Button
+  android:id="@+id/dirSelectButton"
+  style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+  android:text="@string/select_dir" />
 
-   <Button
-    android:id="@+id/dirSelectButton"
-    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/select_dir" />
-  </LinearLayout>
+ <Space />
 
-  <EditText
-   android:id="@+id/localPath"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:hint="@string/hint_local"
-   android:inputType="text" />
+ <EditText
+  android:id="@+id/localPath"
+  android:layout_columnSpan="2"
+  android:layout_gravity="fill"
+  android:hint="@string/hint_local"
+  android:inputType="text" />
 
-  <TextView
-   android:id="@+id/dirInfo"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:text="@string/local_dir_init" />
- </LinearLayout>
+ <Space />
+
+ <TextView
+  android:id="@+id/dirInfo"
+  android:layout_columnSpan="2"
+  android:text="@string/local_dir_init" />
 
  <TextView
   style="@style/groupName"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
+  android:layout_columnSpan="3"
   android:text="@string/copy_target" />
 
- <LinearLayout
-  style="@style/groupElement"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical" >
+ <Space />
 
-  <EditText
-   android:id="@+id/serverPath"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:hint="@string/hint_server"
-   android:inputType="text" />
+ <EditText
+  android:id="@+id/serverPath"
+  android:layout_columnSpan="2"
+  android:layout_gravity="fill"
+  android:hint="@string/hint_server"
+  android:inputType="text" />
 
-  <TextView
-   android:layout_width="wrap_content"
-   android:layout_height="wrap_content"
-   android:text="@string/auth_info" />
+ <TextView
+  android:layout_columnSpan="3"
+  android:text="@string/auth_info" />
 
-  <EditText
-   android:id="@+id/serverId"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:hint="@string/user_id"
-   android:inputType="text" />
+ <Space />
 
-  <EditText
-   android:id="@+id/serverPassword"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:hint="@string/password"
-   android:inputType="textPassword" />
- </LinearLayout>
+ <EditText
+  android:id="@+id/serverId"
+  android:layout_columnSpan="2"
+  android:layout_gravity="fill"
+  android:hint="@string/user_id"
+  android:inputType="text" />
 
- <LinearLayout
-  style="?android:attr/buttonBarStyle"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:measureWithLargestChild="true"
-  android:orientation="horizontal" >
+ <Space />
 
-  <Button
-   android:id="@+id/copyButton"
-   style="?android:attr/buttonBarButtonStyle"
-   android:layout_width="wrap_content"
-   android:layout_height="wrap_content"
-   android:text="@string/copy_pic" />
- </LinearLayout>
+ <EditText
+  android:id="@+id/serverPassword"
+  android:layout_columnSpan="2"
+  android:layout_gravity="fill"
+  android:hint="@string/password"
+  android:inputType="textPassword" />
 
-</LinearLayout>
+ <Button
+  android:id="@+id/copyButton"
+  style="?android:attr/buttonBarButtonStyle"
+  android:layout_columnSpan="3"
+  android:text="@string/copy_pic" />
+
+</GridLayout>
