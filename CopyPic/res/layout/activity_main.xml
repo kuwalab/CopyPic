@@ -18,12 +18,10 @@
 
  <Button
   android:id="@+id/autoSearch"
-  style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
   android:text="@string/auto_search" />
 
  <Button
   android:id="@+id/dirSelectButton"
-  style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
   android:text="@string/select_dir" />
 
  <Space />
@@ -80,7 +78,6 @@
 
  <Button
   android:id="@+id/copyButton"
-  style="?android:attr/buttonBarButtonStyle"
   android:layout_columnSpan="3"
   android:text="@string/copy_pic" />
 
