@@ -1,6 +1,4 @@
-CopyPic/bin
-CopyPic/gen
-CopyPic/libs
-CopyPicTest/bin
-CopyPicTest/gen
-CopyPicTest/libs
+.gradle
+/local.properties
+/.idea/workspace.xml
+.DS_Store
