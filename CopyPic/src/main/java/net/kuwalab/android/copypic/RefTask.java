@@ -12,6 +12,7 @@ import jcifs.smb.SmbFile;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 public class RefTask extends AsyncTask<String, Integer, Long> {
     private Context context;

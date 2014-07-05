@@ -1,13 +1,15 @@
 package net.kuwalab.android.copypic;
 
+import android.support.annotation.NonNull;
+
 public class CopySetting {
     private String localPath;
     private String serverPath;
     private String serverId;
     private String serverPassword;
 
-    public CopySetting(String localPath, String serverPath, String serverId,
-                       String serverPassword) {
+    public CopySetting(@NonNull String localPath, @NonNull String serverPath,
+                       @NonNull String serverId, @NonNull String serverPassword) {
         this.localPath = localPath;
         this.serverPath = serverPath;
         this.serverId = serverId;
