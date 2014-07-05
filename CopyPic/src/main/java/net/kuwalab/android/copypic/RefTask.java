@@ -3,6 +3,7 @@ package net.kuwalab.android.copypic;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +27,7 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
         transferSize = 0L;
     }
 
-    public void setFileSize(Integer fileSize) {
+    public void setFileSize(@NonNull Integer fileSize) {
         totalSize = fileSize;
     }
 
@@ -84,16 +85,16 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
     }
 
     @Override
-    protected void onProgressUpdate(Integer... progress) {
+    protected void onProgressUpdate(@NonNull Integer... progress) {
         dialog.setProgress(progress[0]);
     }
 
     @Override
-    protected void onPostExecute(Long result) {
+    protected void onPostExecute(@NonNull Long result) {
         dialog.dismiss();
     }
 
-    private void copy(File inputFile, SmbFile outputFile) throws IOException {
+    private void copy(@NonNull File inputFile, @NonNull SmbFile outputFile) throws IOException {
         InputStream is = new FileInputStream(inputFile);
         OutputStream os = outputFile.getOutputStream();
 
