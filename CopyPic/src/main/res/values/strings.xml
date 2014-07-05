@@ -10,7 +10,7 @@
  <string name="hint_local">local</string>
  <string name="local_dir_init">ディレクトリを選択してください</string>
  
- <string name="copy_target">写真のコピー先を指定</string>
+ <string name="copy_target">写真のコピー先を指定 192.168...</string>
  <string name="hint_server">server</string>
  <string name="auth_info">サーバーの認証情報</string>
  
