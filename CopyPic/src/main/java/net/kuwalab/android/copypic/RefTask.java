@@ -61,8 +61,7 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
                 writeDir.mkdirs();
             }
 
-            for (int i = 0; i < files.length; i++) {
-                File f = files[i];
+            for (File f : files) {
                 if (!f.isFile()) {
                     continue;
                 }
@@ -101,7 +100,7 @@ public class RefTask extends AsyncTask<String, Integer, Long> {
 
         byte[] buf = new byte[8192];
         try {
-            int len = 0;
+            int len;
             int count = 0;
             while ((len = is.read(buf, 0, buf.length)) != -1) {
                 transferSize = transferSize + (long) len;
